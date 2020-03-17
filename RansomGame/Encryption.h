@@ -21,11 +21,12 @@ public:
 
 private:
 	const char* encryption_file_ = "rsakey.der";
+	const char* custom_extension_name = ".encryptgame";
 	CryptoPP::AutoSeededRandomPool rng_;
-	CryptoPP::RSA::PublicKey public_key_ = CryptoPP::RSA::PublicKey();
-	CryptoPP::RSA::PrivateKey private_key_ = CryptoPP::RSA::PrivateKey();
-	void encrypt_files();
-	CryptoPP::RSAES_OAEP_SHA_Decryptor* generate_rsa_private_key();
+	CryptoPP::RSAES_OAEP_SHA_Decryptor* rsaes_oaep_sha_decryptor_;
+	void encrypt_files(const char* file_name);
+	void decrypt_files(const char* file_name);
+	void generate_rsa_private_key();
 	
 };
 
