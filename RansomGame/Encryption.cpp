@@ -14,6 +14,11 @@ void Encryption::run_encryption_logic()
 	this->decrypt_files("my_text.txt.encryptgame");
 }
 
+void Encryption::get_files(bool isEncrypted)
+{
+	// if isEncrypted, find all files with the proper custom extension
+}
+
 void Encryption::encrypt_files(const char* file_name)
 {
 	CryptoPP::RSAES_OAEP_SHA_Encryptor e(this->rsaes_oaep_sha_decryptor_->GetPublicKey());
@@ -63,5 +68,3 @@ void Encryption::generate_rsa_private_key()
 	std::cout << "\nPrivate exp: " << this->rsaes_oaep_sha_decryptor_->GetKey().GetPrivateExponent() << std::endl;
 	std::cout << "\nModulus: " << this->rsaes_oaep_sha_decryptor_->GetKey().GetModulus() << std::endl;
 }
-
-

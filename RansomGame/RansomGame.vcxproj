@@ -30,7 +30,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -159,10 +159,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Encryption.cpp" />
+    <ClCompile Include="MemorySniff.cpp" />
     <ClCompile Include="RansomGame.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Encryption.h" />
+    <ClInclude Include="MemorySniff.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="my_text.txt" />

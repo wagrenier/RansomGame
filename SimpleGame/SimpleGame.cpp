@@ -9,7 +9,7 @@ int hidden_value = 10;
 int main()
 {
     // For the moment it is an int to simplify my memory reading
-    int input;
+    int input = hidden_value;
     std::cout << "Your system was hacked, find the hidden value to decrypt your system!" << std::endl;
     while (true)
     {

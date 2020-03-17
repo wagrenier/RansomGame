@@ -1,6 +1,5 @@
-#include <iostream>
-
 #include "Encryption.h"
+#include "MemorySniff.h"
 
 int main()
 {
@@ -16,6 +15,8 @@ int main()
 	 * 7- Read memory of game to find value
 	 */
 
-	Encryption ecr;
-	ecr.run_encryption_logic();
+	// Encryption ecr;
+	// ecr.run_encryption_logic();
+	MemorySniff sniff;
+	sniff.sniff_process("SimpleGame.exe");
 }

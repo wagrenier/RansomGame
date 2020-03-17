@@ -21,9 +21,15 @@
     <ClCompile Include="Encryption.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MemorySniff.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Encryption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MemorySniff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
