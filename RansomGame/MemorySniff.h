@@ -12,10 +12,10 @@ void write_memory(dataType value_write, DWORD address_read, HANDLE hProc)
 template <class dataType>
 dataType read_memory(DWORD address_read, HANDLE hProc)
 {
-	dataType rpmBuffer;
+	dataType read_process_memory_buffer;
 
-	ReadProcessMemory(hProc, (PVOID)address_read, &rpmBuffer, sizeof(dataType), 0);
-	return rpmBuffer;
+	ReadProcessMemory(hProc, (PVOID)address_read, &read_process_memory_buffer, sizeof(dataType), 0);
+	return read_process_memory_buffer;
 }
 
 class MemorySniff
