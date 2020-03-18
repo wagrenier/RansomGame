@@ -5,3 +5,7 @@ A first application (RansomGame) encrypts files using RSA and waits for a specif
 Onece the value is hit, the application decrypts the files
 
 ## Build
+The project requires an external library [crypto++](https://github.com/weidai11/cryptopp) in order to build.
+
+## Game
+The required game to unlock the files is [Touhou 6: Koumakyou - The Embodiment of Scarlet Devil ](https://moriyashrine.org/files/file/13-touhou-6-koumakyou-the-embodiment-of-scarlet-devil/).
