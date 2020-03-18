@@ -5,7 +5,7 @@ void MemorySniff::sniff_process(const char* proc_name)
 	while(!this->get_process(proc_name))
 	{
 		// Waits 1 seconds
-		Sleep(1 * 10000);
+		Sleep(1 * 1000);
 	}
 
 	this->read_process();
@@ -64,7 +64,7 @@ void MemorySniff::read_process()
 		difficulty = read_memory<int>(0x0069BCB0, hProc);
 		score = read_memory<int>(0x0069BCA0, hProc);
 		std::cout << "Score: " << score << ", Difficulty: " << difficulty << std::endl;
-		Sleep(1 * 10000);
+		Sleep(1 * 1000);
 	}
 	
 }
