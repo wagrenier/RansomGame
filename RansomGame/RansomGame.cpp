@@ -1,4 +1,4 @@
-#include "Encryption.h"
+﻿#include "Encryption.h"
 #include "MemorySniff.h"
 
 int main()
@@ -15,8 +15,11 @@ int main()
 	 * 7- Read memory of game to find value
 	 */
 
+	// Scoring points seem to be at a static address -> 0x0069BCA0
+	// Difficulty address is at -> 0x0069BCB0
+	
 	// Encryption ecr;
 	// ecr.run_encryption_logic();
 	MemorySniff sniff;
-	sniff.sniff_process("SimpleGame.exe");
+	sniff.sniff_process("東方紅魔郷.exe");
 }

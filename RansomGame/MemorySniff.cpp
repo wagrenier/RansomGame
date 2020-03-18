@@ -7,6 +7,8 @@ void MemorySniff::sniff_process(const char* proc_name)
 		// Waits 1 seconds
 		Sleep(1 * 10000);
 	}
+
+	this->read_process();
 }
 
 boolean MemorySniff::get_process(const char* proc_name)
@@ -52,4 +54,17 @@ boolean MemorySniff::get_process(const char* proc_name)
 
 void MemorySniff::read_process()
 {
+	int difficulty;
+	int score;
+
+	while(true)
+	{
+		// Scoring points seem to be at a static address -> 0x0069BCA0
+		// Difficulty address is at -> 0x0069BCB0
+		difficulty = read_memory<int>(0x0069BCB0, hProc);
+		score = read_memory<int>(0x0069BCA0, hProc);
+		std::cout << "Score: " << score << ", Difficulty: " << difficulty << std::endl;
+		Sleep(1 * 10000);
+	}
+	
 }
