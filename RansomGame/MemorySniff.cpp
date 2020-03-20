@@ -63,6 +63,11 @@ void MemorySniff::read_process()
 		// Difficulty address is at -> 0x0069BCB0
 		difficulty = read_memory<int>(0x0069BCB0, hProc);
 		score = read_memory<int>(0x0069BCA0, hProc);
+
+		if(difficulty != 3)
+		{
+			std::cout << "Wrong difficulty Selected." << std::endl;
+		}
 		std::cout << "Score: " << score << ", Difficulty: " << difficulty << std::endl;
 		Sleep(1 * 1000);
 	}
