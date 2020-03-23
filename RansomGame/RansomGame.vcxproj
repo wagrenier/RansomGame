@@ -163,12 +163,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Encryption.cpp" />
+    <ClCompile Include="Ransom.cpp" />
     <ClCompile Include="MemorySniff.cpp" />
     <ClCompile Include="RansomGame.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Encryption.h" />
+    <ClInclude Include="Ransom.h" />
+    <ClInclude Include="GameProfile.h" />
     <ClInclude Include="MemorySniff.h" />
   </ItemGroup>
   <ItemGroup>

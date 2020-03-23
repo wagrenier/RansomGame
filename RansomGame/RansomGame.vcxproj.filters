@@ -18,18 +18,21 @@
     <ClCompile Include="RansomGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Encryption.cpp">
+    <ClCompile Include="MemorySniff.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MemorySniff.cpp">
+    <ClCompile Include="Ransom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Encryption.h">
+    <ClInclude Include="MemorySniff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MemorySniff.h">
+    <ClInclude Include="GameProfile.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ransom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

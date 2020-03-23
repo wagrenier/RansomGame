@@ -1,17 +1,22 @@
 ﻿#include "MemorySniff.h"
 
-void MemorySniff::sniff_process(const char* proc_name)
+MemorySniff::MemorySniff(game_profile* game_ptr)
 {
-	while(!this->get_process(proc_name))
+	game_ = game_ptr;
+}
+
+void MemorySniff::sniff_process()
+{
+	while(!this->get_process())
 	{
 		// Waits 1 seconds
-		Sleep(1 * 1000);
+		Sleep(wait_time);
 	}
 
 	this->read_process();
 }
 
-boolean MemorySniff::get_process(const char* proc_name)
+boolean MemorySniff::get_process()
 {
 	PROCESSENTRY32 proc_entry32;
 
@@ -30,8 +35,8 @@ boolean MemorySniff::get_process(const char* proc_name)
 	{
 		std::cout << proc_entry32.szExeFile << std::endl;
 
-		// Change here to that it only compares with str.find(str2)
-		if(strstr(proc_name, proc_entry32.szExeFile) != nullptr)
+		// Finds a process that contains the string of the game title
+		if(strstr(game_->game_title, proc_entry32.szExeFile) != nullptr)
 		{
 			std::cout << "Found Process " << proc_entry32.szExeFile << " with process ID " << proc_entry32.th32ProcessID << std::endl;
 			hProc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, proc_entry32.th32ProcessID);
@@ -54,22 +59,26 @@ boolean MemorySniff::get_process(const char* proc_name)
 
 void MemorySniff::read_process()
 {
-	int difficulty;
-	int score;
+	int read_difficulty;
+	int read_score;
 
 	while(true)
 	{
-		// Scoring points seem to be at a static address -> 0x0069BCA0
-		// Difficulty address is at -> 0x0069BCB0
-		difficulty = read_memory<int>(0x0069BCB0, hProc);
-		score = read_memory<int>(0x0069BCA0, hProc);
+		read_difficulty = read_memory<int>(game_->difficulty_memory_address, hProc);
+		read_score = read_memory<int>(game_->score_memory_address, hProc);
 
-		if(difficulty != 3)
+		if(read_difficulty == lunatic && read_score > game_->minimum_score)
+		{
+			std::cout << "Unlocking files." << std::endl;
+			break;
+		}
+
+		if(read_difficulty != lunatic)
 		{
 			std::cout << "Wrong difficulty Selected." << std::endl;
 		}
-		std::cout << "Score: " << score << ", Difficulty: " << difficulty << std::endl;
-		Sleep(1 * 1000);
+		
+		std::cout << "Score: " << read_score << ", Difficulty: " << read_difficulty << std::endl;
+		Sleep(wait_time);
 	}
-	
 }
