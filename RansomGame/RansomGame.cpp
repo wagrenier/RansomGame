@@ -25,6 +25,7 @@ int main()
 		2000
 	};
 
-	//MemorySniff sniff(&game);
-	//sniff.sniff_process();
+	MemorySniff sniff(&game);
+	sniff.sniff_process();
+	ecr.run_decryption_logic();
 }

