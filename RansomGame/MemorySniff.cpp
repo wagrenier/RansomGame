@@ -27,7 +27,10 @@ boolean MemorySniff::get_process()
 
 	if(h_proc_snap == INVALID_HANDLE_VALUE)
 	{
+#ifdef DEBUG
 		std::cout << "Failed to take snapshot of processes." << std::endl;
+#endif
+
 		return false;
 	}
 
@@ -38,7 +41,9 @@ boolean MemorySniff::get_process()
 		// Finds a process that contains the string of the game title
 		if(strstr(game_->game_title, proc_entry32.szExeFile) != nullptr)
 		{
+#ifdef DEBUG
 			std::cout << "Found Process " << proc_entry32.szExeFile << " with process ID " << proc_entry32.th32ProcessID << std::endl;
+#endif
 			hProc = OpenProcess(PROCESS_ALL_ACCESS, FALSE, proc_entry32.th32ProcessID);
 			
 			procID = proc_entry32.th32ProcessID;
@@ -52,8 +57,10 @@ boolean MemorySniff::get_process()
 			return true;
 		}
 	}
-
+#ifdef DEBUG
 	std::cout << "Could not find process." << std::endl;
+#endif
+
 	return false;	
 }
 
@@ -77,8 +84,10 @@ void MemorySniff::read_process()
 		{
 			std::cout << "Wrong difficulty Selected." << std::endl;
 		}
-		
+
+#ifdef DEBUG
 		std::cout << "Score: " << read_score << ", Difficulty: " << read_difficulty << std::endl;
+#endif
 		Sleep(wait_time);
 	}
 }

