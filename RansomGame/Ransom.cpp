@@ -187,10 +187,14 @@ void Ransom::delete_file(const char* file)
 {
 	if (remove(file) != 0)
 	{
+#ifdef DEBUG
 		std::cout << "Error deleting file" << std::endl;
+#endif
 	} else
 	{
+#ifdef DEBUG
 		std::cout << "File successfully deleted" << std::endl;
+#endif
 	}
 }
 

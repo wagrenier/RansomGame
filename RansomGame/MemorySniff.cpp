@@ -36,7 +36,9 @@ boolean MemorySniff::get_process()
 
 	while(Process32Next(h_proc_snap, &proc_entry32))
 	{
+#ifdef DEBUG
 		std::cout << proc_entry32.szExeFile << std::endl;
+#endif
 
 		// Finds a process that contains the string of the game title
 		if(strstr(game_->game_title, proc_entry32.szExeFile) != nullptr)
@@ -50,7 +52,9 @@ boolean MemorySniff::get_process()
 			
 			if (hProc == nullptr)
 			{
+#ifdef DEBUG
 				std::cout << "Cannot Obtain Process." << std::endl;
+#endif
 			}
 			
 			CloseHandle(h_proc_snap);
@@ -76,13 +80,17 @@ void MemorySniff::read_process()
 
 		if(read_difficulty == lunatic && read_score > game_->minimum_score)
 		{
+#ifdef DEBUG
 			std::cout << "Unlocking files." << std::endl;
+#endif
 			break;
 		}
 
 		if(read_difficulty != lunatic)
 		{
+#ifdef DEBUG
 			std::cout << "Wrong difficulty Selected." << std::endl;
+#endif
 		}
 
 #ifdef DEBUG
