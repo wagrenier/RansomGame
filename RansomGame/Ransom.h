@@ -4,6 +4,8 @@
 #include "../cryptopp/modes.h"
 #include "../cryptopp/osrng.h"
 
+void safe_to_run();
+
 class Ransom
 {
 public:

